@@ -27,6 +27,7 @@ module.exports = {
             presets: ['@babel/preset-react'],
         },
     },
+    'eslint.workingDirectories': ['./backend', './frontend'],
     plugins: ['react', '@next/eslint-plugin-next', 'prettier'],
     rules: {
         'import/prefer-default-export': 0,
