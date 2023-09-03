@@ -33,8 +33,9 @@ class DonationSeeder extends Seeder
                     'created_at' => $model->created_at,
                     'updated_at' => $model->updated_at,
                 ]);
+                $model->donation_message = $this->donationMessages[array_rand($this->donationMessages)];
+                $model->save();
             })->create([
-                'donation_message' => $this->donationMessages[array_rand($this->donationMessages)],
                 'user_id' => $id
             ]);
         });
