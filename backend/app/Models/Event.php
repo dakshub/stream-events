@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class Event extends Model
 {
@@ -15,4 +16,9 @@ class Event extends Model
         'user_id',
         'is_read',
     ];
+
+    public function eventable(): MorphTo
+    {
+        return $this->morphTo();
+    }
 }
