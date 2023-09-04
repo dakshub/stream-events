@@ -13,4 +13,13 @@ class EventRepository
     {
         return Event::where('user_id', $user->id)->orderBy('created_at', 'ASC')->paginate($perPage);
     }
+
+    public function updateEvent(int $eventId, array $eventArray): Event
+    {
+        $event = Event::find($eventId);
+        $event->fill($eventArray);
+        $event->save();
+
+        return $event;
+    }
 }
