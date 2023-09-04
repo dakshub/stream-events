@@ -9,7 +9,6 @@ const Dashboard = () => {
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState(null)
     const [page, setPage] = useState(1)
-    const [isSelected, setIsSelected] = useState(false)
 
     const fetchEvents = async () => {
         setIsLoading(true)
@@ -42,6 +41,20 @@ const Dashboard = () => {
 
         if (!endOfResults) {
             fetchEvents()
+        }
+    }
+
+    const handleChecked = async event => {
+        try {
+            let isRead = !event.is_read
+            await axios.put(`/api/events/${event.id}`, { is_read: isRead })
+            alert(`Marked event as ${isRead ? 'read' : 'unread'}`)
+        } catch (error) {
+            setError(error)
+        } finally {
+            const eventIndex = events.findIndex(e => e.id === event.id)
+            events[eventIndex].is_read = !events[eventIndex].is_read
+            setEvents(events)
         }
     }
 
@@ -109,7 +122,11 @@ const Dashboard = () => {
                                 <></>
                             )}
                             <div className="p-3">
-                                <input type="checkbox" />
+                                <input
+                                    type="checkbox"
+                                    defaultChecked={event.is_read}
+                                    onChange={() => handleChecked(event)}
+                                />
                             </div>
                         </div>
                     </div>
