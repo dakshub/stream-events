@@ -3,14 +3,13 @@
 namespace App\Repositories;
 
 use App\Models\Follower;
-use App\Models\User;
 
 class FollowerRepository
 {
 
-    public function getTotalFollowersGained(User $user, int $days): int
+    public function getTotalFollowersGained(int $userId, int $days): int
     {
-        return Follower::where('user_id', $user->id)
+        return Follower::where('user_id', $userId)
             ->where('created_at', '>=', now()->subDays($days))
             ->count();
     }

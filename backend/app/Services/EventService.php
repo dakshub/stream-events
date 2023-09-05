@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Models\Event;
-use App\Models\User;
 use App\Repositories\EventRepository;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
@@ -18,9 +17,9 @@ class EventService
         $this->eventRepository = $eventRepository;
     }
 
-    public function getUserEvents(User $user): LengthAwarePaginator
+    public function getUserEvents(int $userId): LengthAwarePaginator
     {
-        return $this->eventRepository->getLatestPaginatedUserEvents($user, self::EVENTS_PER_PAGE);
+        return $this->eventRepository->getLatestPaginatedUserEvents($userId, self::EVENTS_PER_PAGE);
     }
 
     public function updateEvent(int $eventId, array $eventArray): Event

@@ -17,9 +17,7 @@ class AnalyticsController extends Controller
 
     public function totalRevenue(Request $request): JsonResponse
     {
-        $user = $request->user();
-
-        $totalRevenue = $this->analyticsService->getTotalRevenue($user);
+        $totalRevenue = $this->analyticsService->getTotalRevenue($request->user()->id);
 
         return response()->json([
             'total_revenue' => $totalRevenue
@@ -28,9 +26,7 @@ class AnalyticsController extends Controller
 
     public function totalFollowersGained(Request $request): JsonResponse
     {
-        $user = $request->user();
-
-        $totalFollowersGained = $this->analyticsService->getTotalFollowersGained($user);
+        $totalFollowersGained = $this->analyticsService->getTotalFollowersGained($request->user()->id);
 
         return response()->json([
             'total_followers_gained' => $totalFollowersGained
@@ -39,9 +35,7 @@ class AnalyticsController extends Controller
 
     public function topItemsBySales(Request $request): JsonResponse
     {
-        $user = $request->user();
-
-        $topItemsBySales = $this->analyticsService->getTopItemsBySales($user);
+        $topItemsBySales = $this->analyticsService->getTopItemsBySales($request->user()->id);
 
         return response()->json([
             'top_items_by_sales' => $topItemsBySales

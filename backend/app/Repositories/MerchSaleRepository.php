@@ -3,20 +3,19 @@
 namespace App\Repositories;
 
 use App\Models\MerchSale;
-use App\Models\User;
 
 class MerchSaleRepository
 {
-    public function getRevenueMadeFromMerchSales(User $user, int $days): float
+    public function getRevenueMadeFromMerchSales(int $userId, int $days): float
     {
-        return MerchSale::where('user_id', $user->id)
+        return MerchSale::where('user_id', $userId)
             ->where('created_at', '>=', now()->subDays($days))
             ->sum('total') ?? 0.0;
     }
 
-    public function getTopItemsBySales(User $user, int $days, int $limit): array
+    public function getTopItemsBySales(int $userId, int $days, int $limit): array
     {
-        return MerchSale::where('user_id', $user->id)
+        return MerchSale::where('user_id', $userId)
             ->where('created_at', '>=', now()->subDays($days))
             ->selectRaw('item, SUM(total) AS total_sale')
             ->groupBy('item')

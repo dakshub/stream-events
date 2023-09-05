@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Models\User;
 use App\Repositories\DonationRepository;
 use App\Repositories\FollowerRepository;
 use App\Repositories\MerchSaleRepository;
@@ -30,24 +29,24 @@ class AnalyticsService
         $this->merchSaleRepository = $merchSaleRepository;
     }
 
-    public function getTotalRevenue(User $user): float
+    public function getTotalRevenue(int $userId): float
     {
         $totalRevenue = 0.0;
 
-        $totalRevenue += $this->donationRepository->getRevenueMadeFromDonations($user, self::DAYS);
-        $totalRevenue += $this->subscriberRepository->getRevenueMadeFromSubscriptions($user, self::DAYS);
-        $totalRevenue += $this->merchSaleRepository->getRevenueMadeFromMerchSales($user, self::DAYS);
+        $totalRevenue += $this->donationRepository->getRevenueMadeFromDonations($userId, self::DAYS);
+        $totalRevenue += $this->subscriberRepository->getRevenueMadeFromSubscriptions($userId, self::DAYS);
+        $totalRevenue += $this->merchSaleRepository->getRevenueMadeFromMerchSales($userId, self::DAYS);
 
         return $totalRevenue;
     }
 
-    public function getTotalFollowersGained(User $user): int
+    public function getTotalFollowersGained(int $userId): int
     {
-        return $this->followerRepository->getTotalFollowersGained($user, self::DAYS);
+        return $this->followerRepository->getTotalFollowersGained($userId, self::DAYS);
     }
 
-    public function getTopItemsBySales(User $user): array
+    public function getTopItemsBySales(int $userId): array
     {
-        return $this->merchSaleRepository->getTopItemsBySales($user, self::DAYS, self::TOP_ITEMS_BY_SALES_LIMIT);
+        return $this->merchSaleRepository->getTopItemsBySales($userId, self::DAYS, self::TOP_ITEMS_BY_SALES_LIMIT);
     }
 }

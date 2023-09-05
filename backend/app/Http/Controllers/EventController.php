@@ -19,7 +19,7 @@ class EventController extends Controller
 
     public function index(Request $request): JsonResponse
     {
-        $events = $this->eventService->getUserEvents($request->user());
+        $events = $this->eventService->getUserEvents($request->user()->id);
 
         return EventResource::collection($events)->response();
     }
