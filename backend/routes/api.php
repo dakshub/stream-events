@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AnalyticsController;
 use App\Http\Controllers\EventController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -17,6 +18,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', fn (Request $request) => $request->user());
-    Route::get('/events', [EventController::class, 'index'])->name('events.index');
-    Route::put('/events/{id}', [EventController::class, 'update'])->name('events.update');
+    Route::get('/events', [EventController::class, 'index']);
+    Route::put('/events/{id}', [EventController::class, 'update']);
+    Route::get('/analytics/total-revenue', [AnalyticsController::class, 'totalRevenue']);
+    Route::get('/analytics/total-followers-gained', [AnalyticsController::class, 'totalFollowersGained']);
+    Route::get('/analytics/top-selling-items', [AnalyticsController::class, 'topSellingItems']);
 });
