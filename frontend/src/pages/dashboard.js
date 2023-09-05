@@ -112,7 +112,7 @@ const Dashboard = () => {
                     Stream Events
                 </h2>
             }>
-            <div className="max-w-7xl mx-auto flex items-center justify-between">
+            <div className="max-w-8xl mx-auto flex items-center justify-between">
                 <div className="mx-auto mt-6 px-6 py-4 bg-white shadow-md sm:rounded-lg">
                     Total Revenue in the Last 30 Days:{' '}
                     {totalRevenue ? totalRevenue : 0} USD
