@@ -5,6 +5,9 @@ import { useState, useEffect } from 'react'
 const Dashboard = () => {
     const [pageHeight, setPageHeight] = useState(0)
     const [events, setEvents] = useState([])
+    const [totalRevenue, setTotalRevenue] = useState(null)
+    const [totalFollowersGained, setTotalFollowersGained] = useState(null)
+    const [topSellingItems, setTopSellingItems] = useState(null)
     const [endOfResults, setEndOfResults] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState(null)
@@ -22,6 +25,35 @@ const Dashboard = () => {
             }
             setEvents(prevEvents => [...prevEvents, ...response.data.data])
             setPage(prevPage => prevPage + 1)
+        } catch (error) {
+            setError(error)
+        } finally {
+            setIsLoading(false)
+        }
+    }
+
+    const fetchAnalytics = async () => {
+        setIsLoading(true)
+        setError(null)
+
+        try {
+            const totalRevenueResponse = await axios.get(
+                '/api/analytics/total-revenue',
+            )
+            const totalFollowersGainedResponse = await axios.get(
+                '/api/analytics/total-followers-gained',
+            )
+            const topSellingItemsResponse = await axios.get(
+                '/api/analytics/top-selling-items',
+            )
+            setTotalRevenue(totalRevenueResponse.data.total_revenue)
+            setTotalFollowersGained(
+                totalFollowersGainedResponse.data.total_followers_gained,
+            )
+            const items = topSellingItemsResponse.data.top_selling_items.join(
+                ', ',
+            )
+            setTopSellingItems(items)
         } catch (error) {
             setError(error)
         } finally {
@@ -61,6 +93,7 @@ const Dashboard = () => {
     useEffect(() => {
         if (events.length === 0) {
             fetchEvents()
+            fetchAnalytics()
         }
         window.scrollTo(0, pageHeight)
         window.addEventListener('scroll', handleScroll)
@@ -78,6 +111,18 @@ const Dashboard = () => {
                     Stream Events
                 </h2>
             }>
+            <div className="max-w-7xl mx-auto flex items-center justify-between">
+                <div className="mx-auto mt-6 px-6 py-4 bg-white shadow-md sm:rounded-lg">
+                    Total Revenue in the Last 30 Days: {totalRevenue} USD
+                </div>
+                <div className="mx-auto mt-6 px-6 py-4 bg-white shadow-md sm:rounded-lg">
+                    Total Followers Gained in the Last 30 Days:{' '}
+                    {totalFollowersGained}
+                </div>
+                <div className="mx-auto mt-6 px-6 py-4 bg-white shadow-md sm:rounded-lg">
+                    Top Selling Items in the Last 30 Days: {topSellingItems}
+                </div>
+            </div>
             <div className="py-6">
                 {events.map((event, index) => (
                     <div
