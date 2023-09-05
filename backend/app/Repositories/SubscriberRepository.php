@@ -18,6 +18,6 @@ class SubscriberRepository
                     WHEN subscription_tier = 3 THEN 15
                     ELSE 0 END) AS subscription_revenue
             '))
-            ->value('subscription_revenue');
+            ->value('subscription_revenue') ?? 0.0;
     }
 }
