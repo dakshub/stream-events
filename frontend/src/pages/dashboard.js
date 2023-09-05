@@ -20,8 +20,8 @@ const Dashboard = () => {
         try {
             const response = await axios.get(`/api/events?page=${page}`)
             if (response.data.data.length === 0) {
+                setEvents(events)
                 setEndOfResults(true)
-                return
             }
             setEvents(prevEvents => [...prevEvents, ...response.data.data])
             setPage(prevPage => prevPage + 1)
@@ -33,8 +33,8 @@ const Dashboard = () => {
     }
 
     const fetchAnalytics = async () => {
-        setIsLoading(true)
         setError(null)
+        setIsLoading(true)
 
         try {
             const totalRevenueResponse = await axios.get(
@@ -91,15 +91,16 @@ const Dashboard = () => {
     }
 
     useEffect(() => {
-        if (events.length === 0) {
+        if (events.length === 0 && !endOfResults) {
             fetchEvents()
             fetchAnalytics()
-        }
-        window.scrollTo(0, pageHeight)
-        window.addEventListener('scroll', handleScroll)
+        } else {
+            window.scrollTo(0, pageHeight)
+            window.addEventListener('scroll', handleScroll)
 
-        return () => window.removeEventListener('scroll', handleScroll)
-    }, [isLoading])
+            return () => window.removeEventListener('scroll', handleScroll)
+        }
+    }, [events])
 
     if (isLoading) return <div>'Loading...'</div>
     if (error) return <div>'An error has occurred: {error.message}'</div>
@@ -113,14 +114,16 @@ const Dashboard = () => {
             }>
             <div className="max-w-7xl mx-auto flex items-center justify-between">
                 <div className="mx-auto mt-6 px-6 py-4 bg-white shadow-md sm:rounded-lg">
-                    Total Revenue in the Last 30 Days: {totalRevenue} USD
+                    Total Revenue in the Last 30 Days:{' '}
+                    {totalRevenue ? totalRevenue : 0} USD
                 </div>
                 <div className="mx-auto mt-6 px-6 py-4 bg-white shadow-md sm:rounded-lg">
                     Total Followers Gained in the Last 30 Days:{' '}
-                    {totalFollowersGained}
+                    {totalFollowersGained ? totalFollowersGained : 0}
                 </div>
                 <div className="mx-auto mt-6 px-6 py-4 bg-white shadow-md sm:rounded-lg">
-                    Top Selling Items in the Last 30 Days: {topSellingItems}
+                    Top 3 Selling Items in the Last 30 Days:{' '}
+                    {topSellingItems ? topSellingItems : 'None'}
                 </div>
             </div>
             <div className="py-6">
@@ -178,9 +181,7 @@ const Dashboard = () => {
                 ))}
             </div>
             {endOfResults ? (
-                <div className="py-6 text-center">
-                    Reached the end of events!
-                </div>
+                <div className="py-6 text-center">No events to fetch!</div>
             ) : (
                 <></>
             )}
