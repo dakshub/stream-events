@@ -37,14 +37,14 @@ class AnalyticsController extends Controller
         ]);
     }
 
-    public function topSellingItems(Request $request): JsonResponse
+    public function topItemsBySales(Request $request): JsonResponse
     {
         $user = $request->user();
 
-        $topSellingItems = $this->analyticsService->getTopSellingItems($user);
+        $topItemsBySales = $this->analyticsService->getTopItemsBySales($user);
 
         return response()->json([
-            'top_selling_items' => $topSellingItems
+            'top_items_by_sales' => $topItemsBySales
         ]);
     }
 }

@@ -7,7 +7,7 @@ const Dashboard = () => {
     const [events, setEvents] = useState([])
     const [totalRevenue, setTotalRevenue] = useState(null)
     const [totalFollowersGained, setTotalFollowersGained] = useState(null)
-    const [topSellingItems, setTopSellingItems] = useState(null)
+    const [topItemsBySales, setTopItemsBySales] = useState(null)
     const [endOfResults, setEndOfResults] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState(null)
@@ -43,17 +43,17 @@ const Dashboard = () => {
             const totalFollowersGainedResponse = await axios.get(
                 '/api/analytics/total-followers-gained',
             )
-            const topSellingItemsResponse = await axios.get(
-                '/api/analytics/top-selling-items',
+            const topItemsBySalesResponse = await axios.get(
+                '/api/analytics/top-items-by-sales',
             )
             setTotalRevenue(totalRevenueResponse.data.total_revenue)
             setTotalFollowersGained(
                 totalFollowersGainedResponse.data.total_followers_gained,
             )
-            const items = topSellingItemsResponse.data.top_selling_items.join(
+            const items = topItemsBySalesResponse.data.top_items_by_sales.join(
                 ', ',
             )
-            setTopSellingItems(items)
+            setTopItemsBySales(items)
         } catch (error) {
             setError(error)
         } finally {
@@ -122,8 +122,8 @@ const Dashboard = () => {
                     {totalFollowersGained ? totalFollowersGained : 0}
                 </div>
                 <div className="mx-auto mt-6 px-6 py-4 bg-white shadow-md sm:rounded-lg">
-                    Top 3 Selling Items in the Last 30 Days:{' '}
-                    {topSellingItems ? topSellingItems : 'None'}
+                    Top 3 Items by Sales in the Last 30 Days:{' '}
+                    {topItemsBySales ? topItemsBySales : 'None'}
                 </div>
             </div>
             <div className="py-6">

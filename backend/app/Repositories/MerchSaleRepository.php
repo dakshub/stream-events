@@ -14,7 +14,7 @@ class MerchSaleRepository
             ->sum('total') ?? 0.0;
     }
 
-    public function getTopSellingItems(User $user, int $days, int $limit): array
+    public function getTopItemsBySales(User $user, int $days, int $limit): array
     {
         return MerchSale::where('user_id', $user->id)
             ->where('created_at', '>=', now()->subDays($days))

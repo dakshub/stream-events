@@ -22,5 +22,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/events/{id}', [EventController::class, 'update']);
     Route::get('/analytics/total-revenue', [AnalyticsController::class, 'totalRevenue']);
     Route::get('/analytics/total-followers-gained', [AnalyticsController::class, 'totalFollowersGained']);
-    Route::get('/analytics/top-selling-items', [AnalyticsController::class, 'topSellingItems']);
+    Route::get('/analytics/top-items-by-sales', [AnalyticsController::class, 'topItemsBySales']);
 });
