@@ -10,6 +10,7 @@ use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 class EventService
 {
     public const EVENTS_PER_PAGE = 100;
+
     protected $eventRepository;
 
     public function __construct(EventRepository $eventRepository)
