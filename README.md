@@ -2,6 +2,10 @@
 
 ## Demo
 
+
+https://github.com/dakshub/stream-events/assets/45903885/2d98398f-e58c-495b-9d3d-5b0d59a289b7
+
+
 ## Technology Stack
 
 - Laravel ([Breeze](https://laravel.com/docs/starter-kits), [Sanctum](https://laravel.com/docs/sanctum), [Socialite](https://laravel.com/docs/socialite))
