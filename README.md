@@ -3,7 +3,7 @@
 ## Demo
 
 
-https://github.com/dakshub/stream-events/assets/45903885/2d98398f-e58c-495b-9d3d-5b0d59a289b7
+https://github.com/dakshub/stream-events/assets/45903885/499bccb0-ac22-4974-ac4b-6bea97ae8981
 
 
 ## Technology Stack
