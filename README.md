@@ -1,7 +1,15 @@
 # Stream Events
 
-## Demo
+## Description
 
+This web application shows a list of events in a stream and has the following features:
+- A new user is able to register using GitHub OAuth
+- The users on the platform can have followers, subscribers, donations, and merch sales
+- The first 100 events are shown to the user on their dashboard with ability to load more by scrolling down
+- The list of events can be marked read or unread with persistence in database
+- The dashboard shows user analytics such as the "total revenue", "total followers gained" and "top 3 items by sales"
+
+## Demo
 
 https://github.com/dakshub/stream-events/assets/45903885/499bccb0-ac22-4974-ac4b-6bea97ae8981
 
